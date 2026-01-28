@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1769634824 source:d:\documents\rtti\rtti.c
+	<stdio.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdarg.h>
+	<vadefs.h>
+	"RTTI.h"
+	"build_RTTI.h"
+
+1769627962 d:\documents\rtti\rtti.h
+	<stdlib.h>
+	<stdint.h>
+	<math.h>
+
+1769630634 d:\documents\rtti\build_rtti.h
+	<stdlib.h>
+	"RTTI.h"
+
