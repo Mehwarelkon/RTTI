@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <math.h>
+#include <stdbool.h>
 #ifndef RTTI_NONFORMAL_HEADER
 #define RTTI_NONFORMAL_HEADER
 
@@ -14,9 +15,9 @@
 //int
 typedef struct {
     size_t size;
-    void (*constructor)(void*);
-    void (*destructor)(void*);
-    char* (*repr)(void*);
+    void (*constructor)(void*,void*);
+    void (*destructor)(void*,void*);
+    char* (*repr)(void*,void*);
 
 }metadata;
 typedef struct {
@@ -53,7 +54,36 @@ typedef struct {
     RTTI_FLOAT_metadata *meta;
     double val;
 }RTTI_FLOAT;
+//
+//string 
 
+
+typedef struct{
+    typeid type[1];
+    typeid endoftypes;
+    metadata meta;
+    void (*cat)(void *,void *);
+    void (*cat_char)(void*,void*);
+    void (*cat_charat)(void*,void*);
+    void (*slice)(void*,void*);
+}RTTI_STRING_metadata;
+
+typedef struct{
+    RTTI_STRING_metadata *meta;
+    uint32_t length;
+    char *ptr;
+}RTTI_STRING;
+
+
+//
+
+
+
+
+bool is_instance(void*,typeid);
+bool is_abs_instance(void*,typeid);
+
+char* fmt(const char *format,...);
 
 #endif
 

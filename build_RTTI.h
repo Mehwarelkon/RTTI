@@ -7,26 +7,31 @@
 //int
 static void init_builtin_metadataS(void);
 
-static void RTTI_BUILTIN_INT_CONSTRUCTOR(void* num);
-static void RTTI_BUILTIN_INT_DESTRUCTOR(void* num);
-static char *RTTI_BUILTIN_INT_REPR(void* num);
-static void RTTI_INT_ADD(void*,void*);
-static void RTTI_INT_SUB(void*,void*);
-static void RTTI_INT_MUL(void*,void*);
-static void RTTI_INT_DIV(void*,void*);
-static void RTTI_INT_POW(void*,void*);
+static void RTTI_BUILTIN_INT_CONSTRUCTOR(void*,void*);//self,NULL
+static void RTTI_BUILTIN_INT_DESTRUCTOR(void*,void*);//self,NULL
+static char *RTTI_BUILTIN_INT_REPR(void*,void*);//self,NULL
+static void RTTI_INT_ADD(void*,void*);//self,NULL
+static void RTTI_INT_SUB(void*,void*);//self,NULL
+static void RTTI_INT_MUL(void*,void*);//self,NULL
+static void RTTI_INT_DIV(void*,void*);//self,NULL
+static void RTTI_INT_POW(void*,void*);//self,NULL
 
-static void RTTI_BUILTIN_FLOAT_CONSTRUCTOR(void*);
-static void RTTI_BUILTIN_FLOAT_DESTRUCTOR(void* num);
-static char *RTTI_BUILTIN_FLOAT_REPR(void* num);
-static void RTTI_FLOAT_ADD(void*,void*);
-static void RTTI_FLOAT_SUB(void*,void*);
-static void RTTI_FLOAT_MUL(void*,void*);
-static void RTTI_FLOAT_DIV(void*,void*);
+static void RTTI_BUILTIN_FLOAT_CONSTRUCTOR(void*,void*);//self,NULL
+static void RTTI_BUILTIN_FLOAT_DESTRUCTOR(void*,void*);//self,NULL
+static char *RTTI_BUILTIN_FLOAT_REPR(void*,void*);//self,NULL
+static void RTTI_FLOAT_ADD(void*,void*);//self,NULL
+static void RTTI_FLOAT_SUB(void*,void*);//self,NULL
+static void RTTI_FLOAT_MUL(void*,void*);//self,NULL
+static void RTTI_FLOAT_DIV(void*,void*);//self,NULL
 
-bool is_instance(void*,typeid);
-bool is_abs_instance(void*,typeid);
+static void RTTI_BUILTIN_STRING_CONSTRUCTOR(void*,void*);//*args={size_t size,char*}
+static void RTTI_BUILTIN_STRING_DESTRUCTOR(void*,void*);//self,NULL
+static char *RTTI_BUILTIN_STRING_REPR(void*,void*);//self,NULL
+static void RTTI_BUILTIN_STRING_cat(void*,void*);//self,NULL
 
-static char* fmt(const char *format,...);
+
+void RTTI_print(void*);
+
 #endif
+
 //single inheritance 
