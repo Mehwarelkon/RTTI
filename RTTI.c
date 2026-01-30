@@ -8,44 +8,46 @@
 #include "build_RTTI.h"
 
 #define initVtable RTTI_INT_metadata *ptr_builtin_metadata_int=NULL; RTTI_FLOAT_metadata *ptr_builtin_metadata_float=NULL;RTTI_STRING_metadata *ptr_builtin_metadata_string=NULL;
-
-enumdef();
+enum{INT_id=1,FLOAT_id,STRING_id}RTTI_TYPESIDS;
 initVtable;
 
-void init_builtin_metadataS(void){
+void init_builtin_metadataS(void){//___________TODO:not forgetting the size in metadata again
     //int
-    ptr_builtin_metadata_int=malloc(sizeof(RTTI_INT_metadata)+sizeof(RTTI_FLOAT_metadata)+sizeof(RTTI_STRING_metadata));
+    ptr_builtin_metadata_int=malloc(sizeof(RTTI_INT_metadata)+sizeof(RTTI_FLOAT_metadata)+sizeof(RTTI_STRING_metadata));//arena
     ptr_builtin_metadata_int->type[0]=INT_id;
-    ptr_builtin_metadata_int->endoftypes=0;
-    ptr_builtin_metadata_int->meta.constructor=&RTTI_BUILTIN_INT_CONSTRUCTOR;
-    ptr_builtin_metadata_int->meta.destructor=&RTTI_BUILTIN_INT_DESTRUCTOR;
-    ptr_builtin_metadata_int->meta.repr=&RTTI_BUILTIN_INT_REPR;
-    ptr_builtin_metadata_int->add=&RTTI_INT_ADD;
-    ptr_builtin_metadata_int->sub=&RTTI_INT_SUB;
-    ptr_builtin_metadata_int->mul=&RTTI_INT_MUL;
-    ptr_builtin_metadata_int->div=&RTTI_INT_DIV;
-    ptr_builtin_metadata_int->pow=&RTTI_INT_POW;
+    ptr_builtin_metadata_int->type[1]=INT_id;
+    ptr_builtin_metadata_int->isa.isa.endoftypes=0;
+    ptr_builtin_metadata_int->isa.isa.constructor=&RTTI_BUILTIN_INT_CONSTRUCTOR;
+    ptr_builtin_metadata_int->isa.isa.destructor=&RTTI_BUILTIN_INT_DESTRUCTOR;
+    ptr_builtin_metadata_int->isa.isa.repr=&RTTI_BUILTIN_INT_REPR;
+    ptr_builtin_metadata_int->isa.add=&RTTI_INT_ADD;
+    ptr_builtin_metadata_int->isa.sub=&RTTI_INT_SUB;
+    ptr_builtin_metadata_int->isa.mul=&RTTI_INT_MUL;
+    ptr_builtin_metadata_int->isa.div=&RTTI_INT_DIV;
+    ptr_builtin_metadata_int->isa.pow=&RTTI_INT_POW;
     //
     //float
     ptr_builtin_metadata_float=(RTTI_FLOAT_metadata*)((char*)ptr_builtin_metadata_int)+sizeof(RTTI_INT_metadata);
     ptr_builtin_metadata_float->type[0]=FLOAT_id;
-    ptr_builtin_metadata_float->endoftypes=0;
-    ptr_builtin_metadata_float->meta.constructor=&RTTI_BUILTIN_FLOAT_CONSTRUCTOR;
-    ptr_builtin_metadata_float->meta.destructor=&RTTI_BUILTIN_FLOAT_DESTRUCTOR;
-    ptr_builtin_metadata_float->meta.repr=&RTTI_BUILTIN_FLOAT_REPR;
-    ptr_builtin_metadata_float->add=&RTTI_FLOAT_ADD;
-    ptr_builtin_metadata_float->sub=&RTTI_FLOAT_SUB;
-    ptr_builtin_metadata_float->mul=&RTTI_FLOAT_MUL;
-    ptr_builtin_metadata_float->div=&RTTI_FLOAT_DIV;
+    ptr_builtin_metadata_float->type[1]=FLOAT_id;
+    ptr_builtin_metadata_float->isa.isa.endoftypes=0;
+    ptr_builtin_metadata_float->isa.isa.constructor=&RTTI_BUILTIN_FLOAT_CONSTRUCTOR;
+    ptr_builtin_metadata_float->isa.isa.destructor=&RTTI_BUILTIN_FLOAT_DESTRUCTOR;
+    ptr_builtin_metadata_float->isa.isa.repr=&RTTI_BUILTIN_FLOAT_REPR;
+    ptr_builtin_metadata_float->isa.add=&RTTI_FLOAT_ADD;
+    ptr_builtin_metadata_float->isa.sub=&RTTI_FLOAT_SUB;
+    ptr_builtin_metadata_float->isa.mul=&RTTI_FLOAT_MUL;
+    ptr_builtin_metadata_float->isa.div=&RTTI_FLOAT_DIV;
     //
     //string
     ptr_builtin_metadata_string=(RTTI_STRING_metadata*)(((char*)ptr_builtin_metadata_float)+sizeof(RTTI_FLOAT_metadata));
     ptr_builtin_metadata_string->type[0]=STRING_id;
-    ptr_builtin_metadata_string->endoftypes=0;
-    ptr_builtin_metadata_string->meta.constructor=&RTTI_BUILTIN_STRING_CONSTRUCTOR;
-    ptr_builtin_metadata_string->meta.destructor=&RTTI_BUILTIN_STRING_DESTRUCTOR;
-    ptr_builtin_metadata_string->meta.repr=&RTTI_BUILTIN_STRING_REPR;
-    ptr_builtin_metadata_string->cat=&RTTI_BUILTIN_STRING_cat;
+    ptr_builtin_metadata_string->type[1]=STRING_id;
+    ptr_builtin_metadata_string->isa.isa.endoftypes=0;
+    ptr_builtin_metadata_string->isa.isa.constructor=&RTTI_BUILTIN_STRING_CONSTRUCTOR;
+    ptr_builtin_metadata_string->isa.isa.destructor=&RTTI_BUILTIN_STRING_DESTRUCTOR;
+    ptr_builtin_metadata_string->isa.isa.repr=&RTTI_BUILTIN_STRING_REPR;
+    ptr_builtin_metadata_string->isa.cat=&RTTI_BUILTIN_STRING_cat;
 }
 //int
 static void RTTI_BUILTIN_INT_CONSTRUCTOR(void *num, void *args){
@@ -55,22 +57,22 @@ static void RTTI_BUILTIN_INT_DESTRUCTOR(void *num,void *args){
     free(num);
 }
 static char* RTTI_BUILTIN_INT_REPR(void *num,void* args){
-    return fmt("%d",((RTTI_INT*)num)->val);
+    return fmt("%d",((RTTI_INT*)num)->body.val);
 }
 static void RTTI_INT_ADD(void* self,void *args){
-    ((RTTI_INT*)self)->val+=((RTTI_INT*)args)->val;
+    ((RTTI_INT*)self)->body.val+=((RTTI_INT*)args)->body.val;
 }
 static void RTTI_INT_SUB(void *self,void *args){
-    ((RTTI_INT*)self)->val-=((RTTI_INT*)args)->val;
+    ((RTTI_INT*)self)->body.val-=((RTTI_INT*)args)->body.val;
 }
 static void RTTI_INT_MUL(void *self,void *args){
-    ((RTTI_INT*)self)->val*=((RTTI_INT*)args)->val;
+    ((RTTI_INT*)self)->body.val*=((RTTI_INT*)args)->body.val;
 }
 static void RTTI_INT_DIV(void *self,void *args){
-    ((RTTI_INT*)self)->val/=((RTTI_INT*)args)->val;
+    ((RTTI_INT*)self)->body.val/=((RTTI_INT*)args)->body.val;
 }
 static void RTTI_INT_POW(void *self,void *args){
-    ((RTTI_INT*)self)->val=(int)pow((double)((RTTI_INT*)self)->val , (double)((RTTI_INT*)args)->val);
+    ((RTTI_INT*)self)->body.val=(int)pow((double)((RTTI_INT*)self)->body.val , (double)((RTTI_INT*)args)->body.val);
 }
 //
 //float
@@ -124,15 +126,11 @@ static void RTTI_BUILTIN_STRING_cat(void* self,void* str){
 
 
 // general
-bool is_instance(void* obj,typeid type){
-
-    for(int i=0;;i++){
-        if(*((*(typeid**)obj)+i)==type)return true;
-        if(*((*(typeid**)obj)+i)==0)return false;
-    }
+bool is_instance(void* obj,typeid type){//checks if two have the same base
+    if(*((*(typeid**)obj)+1)==type)return true;
     return false;
 }
-bool is_abs_instance(void *obj,typeid type){
+bool is_abs_instance(void *obj,typeid type){//checks if two the exact same type
     if(*((*(typeid**)obj))==type)return true;
     return false;
 }
@@ -157,27 +155,31 @@ char* fmt(const char *format,...){
 
     return buf;
 }
+void *get_isa_ptr(void *obj){
+    return (*(typeid**)obj)+2;//(*(typeid**)obj)+2;
+}
 void RTTI_print(void*obj){
     typeid *type=*(typeid**)obj;
     int i=0;
     for(;*(type+i)!=0;i++){
     }
-    char*str=(((struct{typeid endoftypes;metadata meta;}*)type)->meta.repr(obj,NULL));
+    char*str=(((struct{typeid endoftypes;basic_isa isa;}*)type)->isa.repr(obj,NULL));
     printf("%s",str);
     free(str);
 }
    //TEST
-
+/*
 int main(){
 INIT_BUILTIN_METADATA;
 RTTI_STRING n1;
 RTTI_STRING n2;
 struct {size_t size;char* c;}args={sizeof("hello"),"hello"};
-ptr_builtin_metadata_string->meta.constructor(&n1,&args);
-ptr_builtin_metadata_string->meta.constructor(&n2,&args);
+ptr_builtin_metadata_string->isa.meta.constructor(&n1,&args);
+ptr_builtin_metadata_string->isa.meta.constructor(&n2,&args);
 
-printf("%s",n1.meta->meta.repr(&n1,NULL));
+printf("%s",n1.meta->isa.meta.repr(&n1,NULL));
 //getchar();
 return 0;
 }
 
+*/

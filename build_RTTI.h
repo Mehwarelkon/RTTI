@@ -5,7 +5,6 @@
 #define RTTI_NONFORMAL_HEADER_build
 
 //int
-static void init_builtin_metadataS(void);
 
 static void RTTI_BUILTIN_INT_CONSTRUCTOR(void*,void*);//self,NULL
 static void RTTI_BUILTIN_INT_DESTRUCTOR(void*,void*);//self,NULL
