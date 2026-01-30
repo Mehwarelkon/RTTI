@@ -1,4 +1,4 @@
-# RTTI v0.0.2
+# RTTI v0.0.3
 is a small library made to bring classes like structures in c 
  to teach c++ devs that c is always better
 
